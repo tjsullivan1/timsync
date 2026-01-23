@@ -8,7 +8,7 @@ spec:
   source:
     chart: cloudnative-pg
     repoURL: https://cloudnative-pg.github.io/charts
-    targetRevision: 1.25.1 # Use a specific version for stability
+    targetRevision: 1.27.2 # Use a specific version for stability
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cnpg-system # The operator lives here
