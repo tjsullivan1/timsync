@@ -8,7 +8,7 @@ spec:
   source:
     chart: cloudnative-pg
     repoURL: https://cloudnative-pg.github.io/charts
-    targetRevision: 0.27.0 # Helm chart version (deploys operator v1.25.1)
+    targetRevision: 0.27.0 # Helm chart version (deploys operator v1.28.0)
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cnpg-system # The operator lives here

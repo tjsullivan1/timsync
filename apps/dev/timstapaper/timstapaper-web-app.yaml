@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fastapi-web-app
+  name: timstapaper-web-app
   namespace: argocd
 spec:
   source:
@@ -10,4 +10,4 @@ spec:
     path: k8s/manifests   # Where the Deployment/Service live in your app repo
   destination:
     server: https://kubernetes.default.svc
-    namespace: apps-dev
+    namespace: timstapaper-dev
