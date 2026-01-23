@@ -6,8 +6,8 @@ provisioner: disk.csi.azure.com
 parameters:
   skuName: PremiumV2_LRS
   # You can specify performance independent of size with V2
-  iopsReadWrite: "3000" 
-  throughputMbps: "125"
+  DiskIOPSReadWrite: "3000" 
+  DiskMBpsReadWrite: "125"
 reclaimPolicy: Retain # CRITICAL: This keeps the data if the cluster is destroyed
 allowVolumeExpansion: true
 volumeBindingMode: WaitForFirstConsumer
