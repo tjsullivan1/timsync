@@ -1,0 +1,14 @@
+# k8s/manifests/eso-bridge.yaml
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: azure-backend
+  namespace: database-dev
+spec:
+  provider:
+    azurekv:
+      authType: WorkloadIdentity
+      vaultUrl: "https://kv-timfra-dev.vault.azure.net" # Replace with your KV URL
+      # This service account must be federated with your Managed Identity
+      serviceAccountRef:
+        name: eso-service-account

@@ -30,5 +30,7 @@ spec:
       destinationPath: "https://timstapaperstorage.blob.core.windows.net/backups"
       # 4. Changed 'azure:' to 'azureCredentials:'
       azureCredentials:
-        storageAccount: "timstapaperstorage"
+        storageAccount:
+          name: storage-creds
+          key: accountName
         inheritFromAzureAD: true
