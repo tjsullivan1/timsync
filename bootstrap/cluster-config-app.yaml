@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-config
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0" # Wave 0: The foundation must come first
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tjsullivan1/timsync.git
+    targetRevision: HEAD
+    path: cluster-config # Points to the folder with Namespaces/StorageClasses
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions:
+      - CreateNamespace=true
