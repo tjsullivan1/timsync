@@ -16,4 +16,9 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: external-secrets
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: argocd # Ensure this exists for the operator
