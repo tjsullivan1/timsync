@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/tjsullivan1/timsync.git
     targetRevision: HEAD
-    path: bootstrap/apps # Points to a folder containing other App manifests
+    path: bootstrap/ # Points to a folder containing other App manifests
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
