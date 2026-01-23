@@ -6,17 +6,29 @@ metadata:
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:16
-  # Use the identity created by Terraform
+  
+  # 1. Added label to trigger Workload Identity injection
+  inheritedMetadata:
+    labels:
+      azure.workload.identity/use: "true"
+
   serviceAccountTemplate:
     metadata:
       annotations:
         azure.workload.identity/client-id: "46f3425d-b9f7-47dc-99b5-dbc78e7df7c1"
+      # 2. Re-apply label here as well for the SA
+      labels:
+        azure.workload.identity/use: "true"
+
   storage:
     size: 20Gi
     storageClass: premium-v2-disk
+
   backup:
     barmanObjectStore:
-      destinationPath: "azure://backups/" # Matches the container name
-      azure:
-        storageAccount: "timstapaperstorage" # From TF output
+      # 3. Updated to the full Azure Blob URL format
+      destinationPath: "https://timstapaperstorage.blob.core.windows.net/backups"
+      # 4. Changed 'azure:' to 'azureCredentials:'
+      azureCredentials:
+        storageAccount: "timstapaperstorage"
         inheritFromAzureAD: true
