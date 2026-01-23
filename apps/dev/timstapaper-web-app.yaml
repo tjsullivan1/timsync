@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fastapi-web-app
+  namespace: argocd
+spec:
+  source:
+    repoURL: https://github.com/tjsullivan1/timstapaper.git
+    targetRevision: main  # This is what your CI/CD will update
+    path: k8s/manifests   # Where the Deployment/Service live in your app repo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apps-dev

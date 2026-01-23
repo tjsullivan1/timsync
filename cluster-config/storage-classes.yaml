@@ -1,0 +1,13 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-v2-disk
+provisioner: disk.csi.azure.com
+parameters:
+  skuName: PremiumV2_LRS
+  # You can specify performance independent of size with V2
+  iopsReadWrite: "3000" 
+  throughputMbps: "125"
+reclaimPolicy: Retain # CRITICAL: This keeps the data if the cluster is destroyed
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer

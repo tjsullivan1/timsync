@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: timstapaper-dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: database-dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd # Ensure this exists for the operator

@@ -1,0 +1,22 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: tim-db
+  namespace: database-dev
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:16
+  # Use the identity created by Terraform
+  serviceAccountTemplate:
+    metadata:
+      annotations:
+        azure.workload.identity/client-id: "46f3425d-b9f7-47dc-99b5-dbc78e7df7c1"
+  storage:
+    size: 20Gi
+    storageClass: premium-v2-disk
+  backup:
+    barmanObjectStore:
+      destinationPath: "azure://backups/" # Matches the container name
+      azure:
+        storageAccount: "timstapaperstorage" # From TF output
+        inheritFromAzureAD: true
