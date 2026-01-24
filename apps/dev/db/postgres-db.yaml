@@ -22,7 +22,7 @@ spec:
 
   storage:
     size: 20Gi
-    storageClass: premium-v2-disk
+    storageClass: managed-csi-premium  # Premium V2 requires AZ-enabled nodes
 
   backup:
     barmanObjectStore:
