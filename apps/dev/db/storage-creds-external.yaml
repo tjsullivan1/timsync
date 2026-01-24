@@ -15,4 +15,4 @@ spec:
   data:
   - secretKey: accountName # The key inside the K8s Secret
     remoteRef:
-      key: tim-storage-account-name # The name of the secret in Azure Key Vault
+      key: timstapaper-storage-account-name # The name of the secret in Azure Key Vault
