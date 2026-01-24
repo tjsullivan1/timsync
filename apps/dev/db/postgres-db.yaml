@@ -27,7 +27,7 @@ spec:
   backup:
     barmanObjectStore:
       # 3. Updated to the full Azure Blob URL format
-      destinationPath: "https://timstapaperstorage.blob.core.windows.net/backups"
+      destinationPath: "https://sttimfrabackup.blob.core.windows.net/backups"
       # 4. Changed 'azure:' to 'azureCredentials:'
       azureCredentials:
         storageAccount:

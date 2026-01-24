@@ -8,7 +8,7 @@ spec:
   provider:
     azurekv:
       authType: WorkloadIdentity
-      vaultUrl: "https://kv-timfra-dev.vault.azure.net" # Replace with your KV URL
-      # This service account must be federated with your Managed Identity
+      tenantId: "012c6d21-cad3-4e61-98dd-2bc660a112b8"
+      vaultUrl: "https://kv-timfra-dev.vault.azure.net"
       serviceAccountRef:
         name: eso-service-account
