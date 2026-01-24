@@ -9,6 +9,6 @@ spec:
     azurekv:
       authType: WorkloadIdentity
       tenantId: "012c6d21-cad3-4e61-98dd-2bc660a112b8"
-      vaultUrl: "https://kv-timfra-dev.vault.azure.net"
+      vaultUrl: "https://kv-timfra1-dev.vault.azure.net"
       serviceAccountRef:
         name: eso-service-account
