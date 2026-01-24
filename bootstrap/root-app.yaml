@@ -15,3 +15,5 @@ spec:
     automated:
       prune: true     # Deletes things in K8s if you delete them in Git
       selfHeal: true  # Fixes manual changes automatically
+    syncOptions:
+      - ServerSideApply=true
