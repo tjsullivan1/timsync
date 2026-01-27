@@ -28,7 +28,7 @@ metadata:
 spec:
   refreshInterval: 1h # How often to check Key Vault for updates
   secretStoreRef:
-    kind: SecretStore
+    kind: ClusterSecretStore
     name: azure-backend
   target:
     name: google-creds # The name of the K8s Secret it will create
