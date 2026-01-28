@@ -51,3 +51,24 @@ spec:
           environment: AzurePublicCloud
           managedIdentity:
             clientID: 13a33503-398c-4627-a1be-e96b2ef6c702
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: tim@sullivanenterprises.org
+    profile: tlsserver
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - dns01:
+        azureDNS:
+          resourceGroupName: rg-dns
+          subscriptionID: 32dade7a-ad90-464c-a9f3-27221e9f9d73
+          hostedZoneName: sullivanenterprises.org
+          environment: AzurePublicCloud
+          managedIdentity:
+            clientID: 13a33503-398c-4627-a1be-e96b2ef6c702
