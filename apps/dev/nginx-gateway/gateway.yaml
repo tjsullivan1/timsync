@@ -12,13 +12,34 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    # - name: https
-    #   port: 443
-    #   protocol: HTTPS
-    #   allowedRoutes:
-    #     namespaces:
-    #       from: All
-    #   tls:
-    #     mode: Terminate
-    #     certificateRefs:
-    #       - name: wildcard-tls  # Your TLS secret
+    - name: timstapaper-https
+      port: 443
+      protocol: HTTPS
+      hostnames:
+        - "timstapaper.sullivanenterprises.org"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: timstapaper-tls  # Your TLS secret
+            kind: Secret
+            group: ""
+            namespace: timstapaper-dev
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-nginx-gateway-to-ref-secrets
+  namespace: timstapaper-dev
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    namespace: nginx-gateway
+  to:
+  - group: ""
+    kind: Secret
+
+    
