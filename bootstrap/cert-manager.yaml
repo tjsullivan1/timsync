@@ -13,6 +13,12 @@ spec:
       parameters:
         - name: installCRDs
           value: "true"
+      values: |
+        podLabels:
+          azure.workload.identity/use: "true"
+        serviceAccount:
+          labels:
+            azure.workload.identity/use: "true"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cert-manager
