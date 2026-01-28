@@ -18,3 +18,22 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gateway
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5" # Waits for the operator
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tjsullivan1/timsync.git
+    targetRevision: HEAD
+    path: apps/dev/nginx-gateway
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
