@@ -15,8 +15,6 @@ spec:
           name: azure
         sources:
           - gateway-httproute
-          - gateway-grpcroute
-          - gateway-tlsroute
         policy: sync
         txtOwnerId: "timsync-cluster"
         
