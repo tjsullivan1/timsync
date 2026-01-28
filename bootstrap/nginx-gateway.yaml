@@ -1,18 +1,17 @@
-# bootstrap/nginx-ingress.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: nginx-gateway-fabric
   namespace: argocd
 spec:
   project: default
   source:
-    chart: ingress-nginx
-    repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.9.1 # Use a specific version
+    chart: nginx-gateway-fabric
+    repoURL: ghcr.io/nginx/charts
+    targetRevision: 1.4.0
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress-nginx
+    namespace: nginx-gateway
   syncPolicy:
     automated:
       prune: true
