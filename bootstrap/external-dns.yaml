@@ -6,14 +6,52 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/tjsullivan1/timsync.git
-    targetRevision: HEAD
-    path: operators
-    directory:
-      include: 'external-dns.yaml'
+    chart: external-dns
+    repoURL: https://kubernetes-sigs.github.io/external-dns
+    targetRevision: 1.14.0
+    helm:
+      values: |
+        provider:
+          name: azure
+        sources:
+          - gateway-httproute
+          - gateway-grpcroute
+          - gateway-tlsroute
+        policy: sync
+        txtOwnerId: "timsync-cluster"
+        
+        # Extra args for Azure configuration
+        extraArgs:
+          - --azure-resource-group=rg-dns
+          - --azure-subscription-id=32dade7a-ad90-464c-a9f3-27221e9f9d73
+        
+        # Environment variables for Workload Identity
+        env:
+          - name: AZURE_TENANT_ID
+            value: "012c6d21-cad3-4e61-98dd-2bc660a112b8"
+          - name: AZURE_CLIENT_ID
+            value: "13a33503-398c-4627-a1be-e96b2ef6c702"
+          - name: AZURE_FEDERATED_TOKEN_FILE
+            value: /var/run/secrets/azure/tokens/azure-identity-token
+        
+        # ServiceAccount with Workload Identity annotations
+        serviceAccount:
+          create: true
+          name: external-dns
+          annotations:
+            azure.workload.identity/client-id: "13a33503-398c-4627-a1be-e96b2ef6c702"
+          labels:
+            azure.workload.identity/use: "true"
+        
+        # Pod label required for workload identity webhook to inject token
+        podLabels:
+          azure.workload.identity/use: "true"
   destination:
     server: https://kubernetes.default.svc
+    namespace: external-dns
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
