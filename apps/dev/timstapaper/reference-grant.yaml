@@ -1,13 +1,13 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: allow-nginx-gateway
+  name: allow-envoy-gateway
   namespace: timstapaper-dev
 spec:
   from:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      namespace: nginx-gateway
+      namespace: envoy-gateway-system
   to:
     - group: ""
       kind: Secret  # Allows Gateway to reference TLS secrets in this namespace
