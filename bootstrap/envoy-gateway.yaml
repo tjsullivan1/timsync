@@ -35,6 +35,6 @@ spec:
     path: apps/dev/envoy-gateway
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: envoy-gateway-system
   syncPolicy:
     automated: { prune: true, selfHeal: true }

@@ -8,6 +8,9 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       namespace: envoy-gateway-system
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: envoy-gateway-system
   to:
     - group: ""
       kind: Secret  # Allows Gateway to reference TLS secrets in this namespace
