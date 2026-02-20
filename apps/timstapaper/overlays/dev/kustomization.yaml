@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+namespace: timstapaper-dev
+
+# For the web-app Application resource, we need to patch its name and its destination namespace
+# Kustomize doesn't automatically patch "destination.namespace" inside an Application resource
+patches:
+  - target:
+      kind: Application
+      name: web-app
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: timstapaper-web-app
+      - op: replace
+        path: /spec/destination/namespace
+        value: timstapaper-dev

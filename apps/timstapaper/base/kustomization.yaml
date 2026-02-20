@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - external-secret.yaml
+  - reference-grant.yaml
+  - web-app.yaml
+
+# This is where we define the target namespace for all resources in this base
+namespace: timstapaper
