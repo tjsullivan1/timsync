@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+namespace: database-dev
+
+patches:
+  - target:
+      kind: Cluster
+      name: tim-db
+    patch: |-
+      - op: replace
+        path: /spec/serviceAccountTemplate/metadata/annotations/azure.workload.identity~1client-id
+        value: "13a33503-398c-4627-a1be-e96b2ef6c702"
+      - op: replace
+        path: /spec/backup/barmanObjectStore/destinationPath
+        value: "https://sttimfra1backup.blob.core.windows.net/backups"

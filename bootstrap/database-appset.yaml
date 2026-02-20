@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: database
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            env: dev
+    - clusters:
+        selector:
+          matchLabels:
+            env: prod
+  template:
+    metadata:
+      name: '{{.name}}-database'
+      annotations:
+        argocd.argoproj.io/sync-wave: "5"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/tjsullivan1/timsync.git
+        targetRevision: HEAD
+        path: apps/db/overlays/{{.values.env}}
+      destination:
+        server: '{{.server}}'
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true

@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: external-dns
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            env: dev
+        values:
+          azureClientId: "13a33503-398c-4627-a1be-e96b2ef6c702"
+          subscriptionId: "32dade7a-ad90-464c-a9f3-27221e9f9d73"
+          resourceGroup: "rg-dns"
+    - clusters:
+        selector:
+          matchLabels:
+            env: prod
+        values:
+          azureClientId: "PROD_DNS_CLIENT_ID"
+          subscriptionId: "PROD_SUBSCRIPTION_ID"
+          resourceGroup: "rg-prod-dns"
+  template:
+    metadata:
+      name: '{{.name}}-external-dns'
+    spec:
+      project: default
+      source:
+        chart: external-dns
+        repoURL: https://kubernetes-sigs.github.io/external-dns
+        targetRevision: 1.14.0
+        helm:
+          values: |
+            provider:
+              name: azure
+            sources:
+              - gateway-httproute
+            policy: sync
+            txtOwnerId: "{{.name}}-timsync-cluster"
+            extraArgs:
+              - --azure-resource-group={{.values.resourceGroup}}
+              - --azure-subscription-id={{.values.subscriptionId}}
+              - --azure-config-file=/etc/kubernetes/azure.json
+            serviceAccount:
+              create: true
+              name: external-dns
+              annotations:
+                azure.workload.identity/client-id: "{{.values.azureClientId}}"
+              labels:
+                azure.workload.identity/use: "true"
+            podLabels:
+              azure.workload.identity/use: "true"
+            extraVolumes:
+              - name: azure-config
+                secret:
+                  secretName: azure-dns-config
+            extraVolumeMounts:
+              - name: azure-config
+                mountPath: /etc/kubernetes
+                readOnly: true
+      destination:
+        server: '{{.server}}'
+        namespace: external-dns
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

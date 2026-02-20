@@ -1,15 +1,13 @@
-# k8s/manifests/eso-bridge.yaml
 apiVersion: external-secrets.io/v1
 kind: ClusterSecretStore
 metadata:
   name: azure-backend
-  namespace: external-secrets
 spec:
   provider:
     azurekv:
       authType: WorkloadIdentity
-      tenantId: "012c6d21-cad3-4e61-98dd-2bc660a112b8"
-      vaultUrl: "https://kv-timfra1-dev.vault.azure.net"
+      tenantId: "PLACEHOLDER_TENANT_ID"
+      vaultUrl: "https://PLACEHOLDER_VAULT.vault.azure.net"
       serviceAccountRef:
         name: eso-service-account
         namespace: external-secrets
