@@ -2,16 +2,17 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base
+  # Pointing to the manifests in your application repo
+  - https://github.com/tjsullivan1/timstapaper.git/k8s/manifests?ref=main
 
 namespace: timstapaper-dev
 
-# For the web-app Application resource, we need to patch its name and its destination namespace
-# Kustomize doesn't automatically patch "destination.namespace" inside an Application resource
 patches:
   - target:
       kind: Application
-      name: web-app
+      name: web-app # This name comes from your app repo if you added it there, 
+                    # but since we are pointing to the folder, we just need to ensure 
+                    # we patch the name to match what you want in Argo.
     patch: |-
       - op: replace
         path: /metadata/name
