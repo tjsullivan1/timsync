@@ -24,7 +24,7 @@ spec:
       source:
         repoURL: https://github.com/tjsullivan1/timsync.git
         targetRevision: HEAD
-        path: infrastructure/db/overlays/{{.values.env}}
+        path: infrastructure/db/overlays/{{.metadata.labels.env}}
       destination:
         server: '{{.server}}'
         namespace: argocd
