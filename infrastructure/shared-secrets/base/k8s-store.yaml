@@ -8,6 +8,6 @@ spec:
       # This allows ESO to read secrets from the database namespace
       remoteNamespace: database-dev
       auth:
-        serviceAccountRef:
+        serviceAccount:
           name: eso-service-account
           namespace: external-secrets
