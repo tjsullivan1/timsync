@@ -1,0 +1,33 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: db-creds
+  namespace: timstapaper-dev
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: k8s-store
+  target:
+    name: db-creds
+    creationPolicy: Owner
+    template:
+      data:
+        database-url: "postgresql://{{ .user }}:{{ .password }}@{{ .host }}:5432/{{ .dbname }}"
+  data:
+  - secretKey: user
+    remoteRef:
+      key: tim-db-app
+      property: user
+  - secretKey: password
+    remoteRef:
+      key: tim-db-app
+      property: password
+  - secretKey: dbname
+    remoteRef:
+      key: tim-db-app
+      property: dbname
+  - secretKey: host
+    remoteRef:
+      key: tim-db-app
+      property: host

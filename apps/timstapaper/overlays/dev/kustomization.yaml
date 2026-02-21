@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pointing to the manifests in your application repo
   - https://github.com/tjsullivan1/timstapaper.git/k8s/manifests?ref=main
+  - db-creds-sync.yaml
 
 namespace: timstapaper-dev
 

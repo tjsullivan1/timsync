@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - eso-bridge.yaml
   - eso-service-account.yaml
+  - k8s-store.yaml
 
 namespace: external-secrets
