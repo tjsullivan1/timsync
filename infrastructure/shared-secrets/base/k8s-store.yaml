@@ -5,8 +5,14 @@ metadata:
 spec:
   provider:
     kubernetes:
-      # This allows ESO to read secrets from the database namespace
       remoteNamespace: database-dev
+      server:
+        # Since it's the same cluster, we can point to the default service
+        url: https://kubernetes.default.svc
+        caProvider:
+          type: ConfigMap
+          name: kube-root-ca.crt
+          key: ca.crt
       auth:
         serviceAccount:
           name: eso-service-account
