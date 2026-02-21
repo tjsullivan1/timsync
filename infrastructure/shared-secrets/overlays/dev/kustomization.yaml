@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: ClusterSecretStore
+      name: azure-backend
+    patch: |-
+      - op: replace
+        path: /spec/provider/azurekv/tenantId
+        value: "012c6d21-cad3-4e61-98dd-2bc660a112b8"
+      - op: replace
+        path: /spec/provider/azurekv/vaultUrl
+        value: "https://kv-timfra1-dev.vault.azure.net"
+  - target:
+      kind: ServiceAccount
+      name: eso-service-account
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/azure.workload.identity~1client-id
+        value: "13a33503-398c-4627-a1be-e96b2ef6c702"
