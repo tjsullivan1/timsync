@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     chart: gateway-helm
-    repoURL: oci://docker.io/envoyproxy
+    repoURL: docker.io/envoyproxy
     targetRevision: v1.6.3
   destination:
     server: https://kubernetes.default.svc
@@ -21,18 +21,6 @@ spec:
       - ServerSideApply=true
   sourceHydrator: {}
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: envoy-gateway-repo
-  namespace: argocd
-  labels:
-    argocd.argoproj.io/secret-type: repository
-stringData:
-  type: helm
-  name: envoyproxy
-  url: oci://docker.io/envoyproxy
-  enableOCI: "true"
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
