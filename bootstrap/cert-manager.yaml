@@ -22,6 +22,14 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cert-manager
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      name: cert-manager-webhook
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
+        - /webhooks/1/clientConfig/caBundle
+        - /webhooks/2/clientConfig/caBundle
   syncPolicy:
     automated:
       prune: true
