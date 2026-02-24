@@ -7,17 +7,3 @@ resources:
   - db-creds-sync.yaml
 
 namespace: timstapaper-dev
-
-patches:
-  - target:
-      kind: Application
-      name: web-app # This name comes from your app repo if you added it there, 
-                    # but since we are pointing to the folder, we just need to ensure 
-                    # we patch the name to match what you want in Argo.
-    patch: |-
-      - op: replace
-        path: /metadata/name
-        value: timstapaper-web-app
-      - op: replace
-        path: /spec/destination/namespace
-        value: timstapaper-dev

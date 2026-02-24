@@ -5,15 +5,3 @@ resources:
   - https://github.com/tjsullivan1/timstapaper.git/k8s/manifests?ref=main
 
 namespace: timstapaper
-
-patches:
-  - target:
-      kind: Application
-      name: web-app
-    patch: |-
-      - op: replace
-        path: /metadata/name
-        value: prod-timstapaper-web-app
-      - op: replace
-        path: /spec/destination/namespace
-        value: timstapaper
