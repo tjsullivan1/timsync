@@ -1,20 +1,34 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: external-dns-config
   namespace: argocd
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/tjsullivan1/timsync.git
-    targetRevision: HEAD
-    path: apps/dev/external-dns
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: external-dns
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  goTemplate: true
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            env: dev
+    - clusters:
+        selector:
+          matchLabels:
+            env: prod
+  template:
+    metadata:
+      name: '{{.name}}-external-dns-config'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/tjsullivan1/timsync.git
+        targetRevision: HEAD
+        path: infrastructure/external-dns/overlays/{{.metadata.labels.env}}
+      destination:
+        server: '{{.server}}'
+        namespace: external-dns
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
