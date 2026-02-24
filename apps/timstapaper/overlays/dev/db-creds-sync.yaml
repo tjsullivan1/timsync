@@ -13,12 +13,12 @@ spec:
     creationPolicy: Owner
     template:
       data:
-        database-url: "postgresql://{{ .user }}:{{ .password }}@{{ .host }}:5432/{{ .dbname }}"
+        database-url: "postgresql://{{ .user }}:{{ .password }}@tim-db-rw.database-dev.svc:5432/{{ .dbname }}"
   data:
   - secretKey: user
     remoteRef:
       key: tim-db-app
-      property: user
+      property: username
   - secretKey: password
     remoteRef:
       key: tim-db-app
@@ -27,7 +27,3 @@ spec:
     remoteRef:
       key: tim-db-app
       property: dbname
-  - secretKey: host
-    remoteRef:
-      key: tim-db-app
-      property: host
