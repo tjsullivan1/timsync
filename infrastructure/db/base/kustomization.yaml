@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - postgres-db.yaml
   - storage-creds.yaml
+  - eso-rbac.yaml
 
 namespace: database
