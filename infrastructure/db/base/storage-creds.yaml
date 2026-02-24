@@ -13,4 +13,4 @@ spec:
   data:
   - secretKey: accountName
     remoteRef:
-      key: storage-account-name
+      key: timstapaper-storage-account-name
